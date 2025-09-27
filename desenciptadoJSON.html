@@ -36,15 +36,17 @@
       }
     ];
 
-    mensajes.forEach((item, index) => {
-      try {
-        const decrypted = CryptoJS.AES.decrypt(item.en_message, item.key);
-        const texto = decrypted.toString(CryptoJS.enc.Utf8);
-        console.log(`Mensaje ${index + 1} descifrado:`, texto);
-      } catch (error) {
-        console.error(`Error al descifrar el mensaje ${index + 1}:`, error);
+       for (let clave in mensajes) {
+      let actual = mensajes[clave];
+      let resultado = CryptoJS.AES.decrypt(actual.en_message, actual.key);
+      let texto = resultado.toString(CryptoJS.enc.Utf8);
+
+      if (texto) {
+        console.log(`cerrojo ${clave}: ${texto}`);
+      } else {
+        console.warn(` No se pudo descifrar ${clave}`);
       }
-    });
+    }
   </script>
 </body>
 </html>
